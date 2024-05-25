@@ -1,4 +1,4 @@
-#include <Arduino.h>  // Remove this line for Arduino IDE
+#include <Arduino.h>  // You can remove this line for Arduino IDE
 
 /*
 

@@ -4,16 +4,25 @@
 
 A small utility to test an [Amiga A500](https://en.wikipedia.org/wiki/Amiga_500)
 keyboard using an [Arduino Uno](https://docs.arduino.cc/hardware/uno-rev3/)
-with serial output over USB.
+with serial output over USB. 
+The serial output will display all
+[key scan codes](http://amigadev.elowar.com/read/ADCD_2.1/Hardware_Manual_guide/node017A.html) (up/down) and
+['special' control codes](http://amigadev.elowar.com/read/ADCD_2.1/Hardware_Manual_guide/node017B.html)
+in both hexadecimal and human readable form.
+The 'Caps Lock' LED indicator on the keyboard will also be reflected by the Uno's on board LED.
+
+
 Based on information available from the
 [Amiga Hardware Reference Manual](http://amigadev.elowar.com/read/ADCD_2.1/Hardware_Manual_guide/node0172.html)
 and [code by olaf](https://forum.arduino.cc/t/amiga-500-1000-2000-keyboard-interface/136052).
 Unlike that code, this project does not translate amiga keys to USB HID for PC keyboard compatibility.
 The Uno's [ATmega328](https://www.microchip.com/en-us/product/ATmega328)
-MCU lacks the required on-chip support for USB that the Leonardo's
+MCU lacks the required on-chip support for USB that the
+[Leonardo](https://docs.arduino.cc/hardware/leonardo/)'s
 [ATmega32u4](https://www.microchip.com/en-us/product/ATmega32U4) has.
 Therefore this utility is useful only as an external tool for testing Amiga keyboards.
-Still I found this useful to test a keyboard MCU replacement build prior to plugging into a working Amiga.
+Still I found this useful to test a keyboard MCU replacement build prior to plugging into a working Amiga
+if you don't have a Leonardo board to re-purpose one of the many existing USB HID adapter sketches.
 
 ## Hardware Connections ##
 
@@ -38,21 +47,13 @@ Connect your Arduino UNO to your PC using the USB cable as normal.
 
 This tool was developed using the [PlatformIO](https://platformio.org/) extension for
 [Visual Studio Code (VScode)](https://code.visualstudio.com/).
-
-It will probably work as an [Arduino IDE](https://www.arduino.cc/en/software) sketch
-but you may have to remove the first line:
-
-```C
-#include <Arduino.h>  // Remove this line for Arduino IDE
-```
-
-since this is included only to use the
-[PlatformIO Arduino framework](https://docs.platformio.org/en/latest/frameworks/arduino.html)
+It will also work as an [Arduino IDE](https://www.arduino.cc/en/software) sketch
+by renaming [```main.cpp```](/src/main.cpp) to e.g. ```main.ino```
 
 Build and upload to your Uno over USB using the PlatformIO IDE (or Arduino IDE as a sketch).
-Alternatively, a prebuilt binary firmware is available if you wish to flash directly
-using e.g. [avrdude](https://github.com/avrdudes/avrdude) in which case I'm going to assume
-that you know what you are doing :)
+Alternatively, a prebuilt [binary firmware](/build/firmware.hex) is available if you wish 
+to flash directly using e.g. [avrdude](https://github.com/avrdudes/avrdude)
+in which case I'm going to assume that you know what you are doing :)
 
 Then use the IDE "serial monitor" to view the output.
 Alternatively use your choice of [terminal emulator](https://en.wikipedia.org/wiki/Terminal_emulator)
@@ -64,4 +65,3 @@ The baud rate can be changed in the code on this line:
 #define SERIAL_BAUD 115200
 ```
 
-The 'Caps Lock' LED indicator on the keyboard will also be reflected by the Uno's on board LED.
